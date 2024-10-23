@@ -21,9 +21,10 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
-}
+function isPositive(number) {
+    return number >= 0;   //answer true;
+  }
+
 
 /**
  * Returns the maximum of three numbers without using Array and Math classes methods.
@@ -110,8 +111,35 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+
+
+function convertToRomanNumerals(num) {
+  const romanNumerals = [
+    { value: 1000, symbol: 'M' },
+    { value: 900, symbol: 'CM' },
+    { value: 500, symbol: 'D' },
+    { value: 400, symbol: 'CD' },
+    { value: 100, symbol: 'C' },
+    { value: 90, symbol: 'XC' },
+    { value: 50, symbol: 'L' },
+    { value: 40, symbol: 'XL' },
+    { value: 10, symbol: 'X' },
+    { value: 9, symbol: 'IX' },
+    { value: 5, symbol: 'V' },
+    { value: 4, symbol: 'IV' },
+    { value: 1, symbol: 'I' }
+  ];
+
+  let result = '';
+
+  for (const { value, symbol } of romanNumerals) {
+    while (num >= value) {
+      result += symbol;
+      num -= value;
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -145,8 +173,14 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+
+//madam is an example of palindrom
+
+function isPalindrome(str) {
+
+   const cleanedStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+   const reversedStr = cleanedStr.split('').reverse('').join('');
+   return cleanedStr === reversedStr;
 }
 
 /**
@@ -163,8 +197,8 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  return str.indexOf(letter);
 }
 
 /**
@@ -182,8 +216,8 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+
 }
 
 /**
@@ -199,8 +233,8 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+
 }
 
 /**
@@ -224,8 +258,9 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+    const matrix = Array.from({ })
+
 }
 
 /**
@@ -261,8 +296,11 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+    if (!Array.isArray(arr)) {
+         throw new Error('must be an array');
+    }
+    return arr.sort ((a, b) => a - b);
 }
 
 /**
@@ -303,9 +341,41 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
-}
+
+
+   function getNearestBigger(number) {
+    if (typeof number !== 'number' || number < 0) {
+      throw new Error("Input must be a non-negative number");
+    }
+
+    const digits = number.toString().split('');
+    let i = digits.length - 2;
+
+    // Найти первую цифру, которую можно увеличить
+    while (i >= 0 && digits[i] >= digits[i + 1]) {
+      i--;
+    }
+
+    if (i < 0) {
+      return -1; // Невозможно найти большее число
+    }
+
+    let j = digits.length - 1;
+
+    // Найти наименьшую цифру справа от i, которая больше digits[i]
+    while (digits[j] <= digits[i]) {
+      j--;
+    }
+
+    // Поменять местами digits[i] и digits[j]
+    [digits[i], digits[j]] = [digits[j], digits[i]];
+
+    // Перевернуть часть массива справа от i
+    const result = digits.slice(0, i + 1).concat(digits.slice(i + 1).reverse());
+
+    return parseInt(result.join(''), 10);
+  }
+
 
 module.exports = {
   isPositive,
