@@ -187,7 +187,19 @@ function isPalindrome(str) {
  *  'qwerty', 'p'     => -1
  */
 function getIndexOf(str, letter) {
-  return str.indexOf(letter);
+  if (
+    typeof str !== 'string' ||
+    typeof letter !== 'string' ||
+    letter.length !== 1
+  ) {
+    throw new Error('Invalid input');
+  }
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
