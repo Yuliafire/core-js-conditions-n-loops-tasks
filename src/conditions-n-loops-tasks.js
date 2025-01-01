@@ -402,10 +402,13 @@ function sortByAsc(arr) {
  */
 function shuffleChar(str, iterations) {
   let result = str;
+  const { length } = result;
+
   for (let i = 0; i < iterations; i += 1) {
     let evenChars = '';
     let oddChars = '';
-    for (let j = 0; j < result.length; j += 1) {
+
+    for (let j = 0; j < length; j += 1) {
       if (j % 2 === 0) {
         evenChars += result[j];
       } else {
