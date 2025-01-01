@@ -358,8 +358,25 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+// matrixLength / 2 - layers in total
+//there are inner layers nd outer layers (it's the center element)
+
+
+function rotateMatrix(matrix) {
+   const matrixLength = matrix.length;
+   const matrixCopy = matrix; // make a copy
+
+   for (let i = 0; i < matrixLength / 2; i += 1) { // Loop through each layer
+    for (let j = i; j < matrixLength - i - 1; j += 1) { // Loop through each element in the layer
+      const tempVar = matrixCopy[i][j]; // Temporarily store the top element
+      matrixCopy[i][j] = matrixCopy[matrixLength - j - 1][i]; // Move left element to top
+      matrixCopy[matrixLength - j - 1][i] = matrixCopy[matrixLength - i - 1][matrixLength - j - 1]; // Move bottom element to left
+      matrixCopy[matrixLength - i - 1][matrixLength - j - 1] = matrixCopy[j][matrixLength - i - 1]; // Move right element to bottom
+      matrixCopy[j][matrixLength - i - 1] = tempVar; // Move top element to right
+    }
+  }
+
+  return matrixCopy; // Return the rotated matrix
 }
 
 /**
