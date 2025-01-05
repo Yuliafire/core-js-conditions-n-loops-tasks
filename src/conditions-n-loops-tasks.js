@@ -22,7 +22,10 @@
  *  -5 => false
  */
 function isPositive(number) {
-  return number >= 0;
+  if (number >= 0) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -39,10 +42,10 @@ function isPositive(number) {
  *  -0.1, 0, 0.2  => 0.2
  */
 function getMaxNumber(a, b, c) {
-  if (a >= b && a >= c) {
+  if (a > b && a > c) {
     return a;
   }
-  if (b >= a && b >= c) {
+  if (b > c) {
     return b;
   }
   return c;
@@ -339,8 +342,49 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const spiralMatrix = new Array(size);
+  for (let i = 0; i < size; i += 1) {
+    spiralMatrix[i] = new Array(size).fill(0);
+  }
+
+  let count = 1;
+  let rowStart = 0;
+  let rowEnd = size - 1;
+  let colStart = 0;
+  let colEnd = size - 1;
+
+  // fill the matrix in spiral order:
+  while (rowStart <= rowEnd && colStart <= colEnd) {
+    // we fill the TOP ROW from left to right
+    for (let j = colStart; j <= colEnd; j += 1) {
+      spiralMatrix[rowStart][j] = count;
+      count += 1;
+    }
+
+    rowStart += 1;
+    // fill the RIGHT COLUMN from top to bottom
+    for (let i = rowStart; i <= rowEnd; i += 1) {
+      spiralMatrix[i][colEnd] = count;
+      count += 1;
+    }
+    colEnd -= 1;
+    // fill the BOTTOM ROW from right to left
+    for (let j = colEnd; j >= colStart; j -= 1) {
+      spiralMatrix[rowEnd][j] = count;
+      count += 1;
+    }
+    rowEnd -= 1;
+
+    // fill the left column
+    for (let i = rowEnd; i >= rowStart; i -= 1) {
+      spiralMatrix[i][colStart] = count;
+      count += 1;
+    }
+    colStart += 1;
+  }
+
+  return spiralMatrix;
 }
 
 /**
