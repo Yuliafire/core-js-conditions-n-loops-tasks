@@ -470,34 +470,28 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
+
 function shuffleChar(str, iterations) {
-  let shuffledArray = str; // string we want to shuffle
-
-  const arr = []; // empty list  where wwe will store the shuffled version
-
-  // for each iteration split the string into 2 parts  - left and right
-  // left - for even indexes  0,2,4,6
-  // right - for odd indexes  1,3,5,7
+  let charArray = str;
+  const arr = [];
 
   for (let j = 0; j < iterations; j += 1) {
     let left = '';
     let right = '';
 
-    for (let i = 1; i < shuffledArray.length; i += 2) {
-      right += shuffledArray[i];
-      left += shuffledArray[i - 1];
+    for (let i = 1; i < charArray.length; i += 2) {
+      right += charArray[i];
+      left += charArray[i - 1];
     }
 
-    // combine left and right to form the new shuffled string
-    shuffledArray = left + right;
-    arr[j] = shuffledArray; // store this new string in the arr list at the index of j
-    if (shuffledArray === str) {
-      // check if shuffled string matches original
+    charArray = left + right;
+    arr[j] = charArray;
+    if (charArray === str) {
       return arr[(iterations % (j + 1)) - 1];
     }
   }
 
-  return shuffledArray;
+  return charArray;
 }
 
 // [(iterations % (j + 1)) - 1];
