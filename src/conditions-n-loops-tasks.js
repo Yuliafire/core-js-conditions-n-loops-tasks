@@ -136,11 +136,8 @@ function convertToRomanNumerals(num) {
   const keys = ['X', 'IX', 'V', 'IV', 'I'];
   const values = [10, 9, 5, 4, 1];
 
-  // initialise a string
-  // to build a representation of roman numbers
   let string = '';
 
-  // iterate over the keys values;
   for (let i = 0; i < keys.length; i += 1) {
     while (number >= values[i]) {
       string += keys[i];
