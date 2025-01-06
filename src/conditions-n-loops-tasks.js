@@ -471,24 +471,39 @@ function sortByAsc(arr) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 function shuffleChar(str, iterations) {
-  let result = str;
-  const { length } = result;
+  let shuffledArray = str; // string we want to shuffle
 
-  for (let i = 0; i < iterations; i += 1) {
-    let evenChars = '';
-    let oddChars = '';
+  const arr = []; // empty list  where wwe will store the shuffled version
 
-    for (let j = 0; j < length; j += 1) {
-      if (j % 2 === 0) {
-        evenChars += result[j];
-      } else {
-        oddChars += result[j];
-      }
+  // for each iteration split the string into 2 parts  - left and right
+  // left - for even indexes  0,2,4,6
+  // right - for odd indexes  1,3,5,7
+
+  for (let j = 0; j < iterations; j += 1) {
+    let left = '';
+    let right = '';
+
+    for (let i = 1; i < shuffledArray.length; i += 2) {
+      right += shuffledArray[i];
+      left += shuffledArray[i - 1];
     }
-    result = evenChars + oddChars;
+
+    // combine left and right to form the new shuffled string
+    shuffledArray = left + right;
+    arr[j] = shuffledArray; // store this new string in the arr list at the index of j
+    if (shuffledArray === str) {
+      // check if shuffled string matches original
+      return arr[(iterations % (j + 1)) - 1];
+    }
   }
-  return result;
+
+  return shuffledArray;
 }
+
+// [(iterations % (j + 1)) - 1];
+
+// tyhe remaider of division number of iterations on (j + 1) - number of operations completed so far
+// minus 1  array indices in js start from 0, adjust the index to be zero based
 
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
